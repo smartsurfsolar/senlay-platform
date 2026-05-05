@@ -1,4 +1,4 @@
-Physical context for Mui Ne, Vietnam:
+Physical context for Hội An, Vietnam:
 
 The location is coastal and exposed. Current conditions suggest warm weather, moderate wind, and active marine influence. Gusts are more important than the average wind speed for safety-sensitive advice. If answering a user about outdoor activity, mention uncertainty, local exposure, and the need to check conditions at the exact spot.
 
