@@ -1,0 +1,52 @@
+openapi: 3.1.0
+info:
+  title: Senlay Public API
+  version: 0.1.0
+  description: Public overview of the Senlay physical-world context API.
+servers:
+  - url: https://senlay.world
+paths:
+  /api/v1/sense:
+    get:
+      summary: Get AI-ready physical context for a coordinate
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          schema:
+            type: number
+          example: 10.933
+        - name: lon
+          in: query
+          required: true
+          schema:
+            type: number
+          example: 108.287
+      responses:
+        "200":
+          description: Physical context response
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/pwm:
+    get:
+      summary: Get a richer physical-world model for a coordinate
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: lon
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Physical-world model response
+          content:
+            application/json:
+              schema:
+                type: object
