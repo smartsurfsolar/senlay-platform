@@ -81,9 +81,9 @@ More detail:
 - [`docs/USE_CASES.md`](docs/USE_CASES.md)
 - [`docs/ROADMAP.md`](docs/ROADMAP.md)
 
-## Repository Boundary
+## Repository Purpose
 
-This public repository documents the platform, API shape, examples, and product direction. The production implementation is maintained separately as private infrastructure.
+This repository documents the platform, API shape, examples, and product direction.
 
 ## Contact
 
