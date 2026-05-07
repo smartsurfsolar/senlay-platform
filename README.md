@@ -1,8 +1,8 @@
-# Senlay Platform
+# Senlay — Sensory Intelligence Layer for AI Agents
 
-**A sensory intelligence platform for AI agents and real-world applications.**
+**Senlay is a sensory intelligence layer that connects AI agents to the physical world.**
 
-Senlay gives software live physical-world context: weather, wind, ocean state, terrain, air quality, seismic activity, and environmental signals at real coordinates. It is designed for AI agents, assistants, and developer tools that need to reason from current conditions instead of static knowledge.
+Senlay gives AI agents real-time awareness of weather, ocean, terrain, air quality, satellite data, sensor data, and physical-world context. It is designed for AI agents, assistants, and developer tools that need to reason from current conditions instead of static knowledge.
 
 [senlay.world](https://senlay.world) · [Public Website](https://github.com/smartsurfsolar/senlay-world) · [Founder Story](https://senlay.world/founder.html)
 
