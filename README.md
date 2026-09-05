@@ -39,6 +39,8 @@ The public website source is maintained separately in [senlay-world](https://git
 
 This is the first `0.x` protocol release. Self-service station registration and signed observation ingestion are available at `senlay.cloud` for authenticated Senlay accounts. The server retains only a non-recoverable hash of every station secret; save each secret when it is returned.
 
+The network is at the start of its path: there are no coverage guarantees and no SLA. It is not claimed as generally available.
+
 ## Connect a station to the live network
 
 First create a normal account at [senlay.cloud/register.html](https://senlay.cloud/register.html), then create an API key in the dashboard and save it when shown. Stored keys cannot be retrieved; create a replacement if yours is lost. Use that account key for provider and station management; use the station secret only to sign observations.
