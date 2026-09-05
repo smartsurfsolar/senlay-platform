@@ -20,7 +20,7 @@ Add the public stateless Streamable HTTP endpoint to an MCP-capable client. Anon
 
 The MCP `2026-07-28` server exposes exactly `sense_location`, `check_operability`, and `list_domains`. It preserves Senlay evidence provenance and explicitly reports unavailable inputs instead of inventing values. To use an account tier, add `Authorization: Bearer sl_live_...` to the server headers. Operability results are decision support; humans remain the final authority.
 
-Official MCP Registry metadata is provided in [`server.json`](server.json). Publishing requires a repository-owner login and is intentionally performed only after the live endpoint and metadata validate.
+Official MCP Registry metadata is provided in [`server.json`](server.json). Version `1.0.0` is published as `io.github.smartsurfsolar/senlay` after live endpoint and schema validation.
 
 ## What is open here
 
