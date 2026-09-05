@@ -1,6 +1,6 @@
-# Senlay Open Network
+# Senlay — Verified Physical Context for Systems That Act Outside
 
-Open protocol, JavaScript SDK, and edge-gateway starter for connecting independently operated sensors to Senlay.
+This is the Senlay Open Network: the open protocol, JavaScript SDK, and edge-gateway starter for connecting independently operated sensors to verified physical context.
 
 [senlay.cloud](https://senlay.cloud) · [API documentation](https://senlay.cloud/docs.html)
 

@@ -1,7 +1,7 @@
 {
   "name": "@senlay/open-network",
   "version": "0.1.0",
-  "description": "Open sensor protocol, SDK, and edge gateway for the Senlay network",
+  "description": "Open sensor protocol and SDK for verified physical context",
   "type": "module",
   "main": "src/index.js",
   "exports": "./src/index.js",
