@@ -19,7 +19,17 @@ The production aggregation engine, global registry, authentication, billing, pro
 
 This is the first `0.x` protocol release. The SDK and gateway work locally and against a configurable compatible endpoint. Public self-service sensor ingestion on `senlay.cloud` is not claimed as generally available until its production endpoint and provider onboarding process are announced.
 
-## Quick start
+## Try the live API — no install
+
+```bash
+CREDS="$(curl -sS -X POST https://senlay.cloud/api/v1/agent-register -H 'content-type: application/json' --data '{"ownerEmail":"you@example.com","agentName":"my-first-agent"}')"; printf '%s\n' "$CREDS"
+API_KEY="$(printf '%s' "$CREDS" | sed -n 's/.*"apiKey":"\([^"]*\)".*/\1/p')"
+curl -sS -H "Authorization: Bearer $API_KEY" "https://senlay.cloud/api/v1/sense?lat=15.8801&lng=108.3380&field=kitesurfing"
+```
+
+Save both the `apiKey` and `recoveryToken` shown by the first command; each is returned only once. Replace `you@example.com` and `my-first-agent` with your own identity.
+
+## Local SDK and gateway
 
 ```bash
 npm install
