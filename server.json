@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.smartsurfsolar/senlay",
+  "title": "Senlay Physical Context",
+  "description": "Physical-world evidence and operability checks with provenance and explicit data gaps.",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/smartsurfsolar/senlay-platform",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://senlay.cloud/mcp"
+    }
+  ]
+}
