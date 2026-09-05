@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/index.js",
   "exports": "./src/index.js",
-  "files": ["src", "protocol", "gateway", "adapters", "python", "docs"],
+  "files": ["src", "protocol", "gateway", "adapters", "python/*.py", "python/tests/*.py", "docs"],
   "scripts": {
     "check": "node --check src/index.js && node --check src/protocol.js && node --check src/signing.js && node --check src/client.js && node --check gateway/server.js && node --check gateway/mqtt-bridge.js && node --check adapters/example-sensor.js && python3 -m py_compile python/senlay_client.py python/simulator.py python/publish_reading.py",
     "test": "node --test test/*.test.js && npm run test:python",
