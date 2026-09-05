@@ -64,6 +64,16 @@ npm run example
 
 The gateway validates observations locally. Set `SENLAY_INGEST_URL` to forward them to an authorized compatible ingestion endpoint.
 
+## MQTT bridge (optional)
+
+For hardware that publishes JSON observations to an MQTT broker, configure the MQTT variables in `.env` and run:
+
+```bash
+npm run mqtt-bridge
+```
+
+The bridge subscribes to `SENLAY_MQTT_TOPIC`, validates every message through the SDK, signs it with the station secret, and forwards it to the HTTPS ingestion endpoint. Use one bridge credential per station; do not share a station secret among devices.
+
 ## Branches
 
 - `main`: stable public releases

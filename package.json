@@ -7,11 +7,15 @@
   "exports": "./src/index.js",
   "files": ["src", "protocol", "gateway", "adapters", "docs"],
   "scripts": {
-    "check": "node --check src/index.js && node --check src/protocol.js && node --check src/signing.js && node --check src/client.js && node --check gateway/server.js && node --check adapters/example-sensor.js",
+    "check": "node --check src/index.js && node --check src/protocol.js && node --check src/signing.js && node --check src/client.js && node --check gateway/server.js && node --check gateway/mqtt-bridge.js && node --check adapters/example-sensor.js",
     "test": "node --test test/*.test.js",
     "gateway": "node gateway/server.js",
+    "mqtt-bridge": "node gateway/mqtt-bridge.js",
     "example": "node adapters/example-sensor.js"
   },
   "engines": { "node": ">=20" },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "mqtt": "^5.10.0"
+  }
 }
