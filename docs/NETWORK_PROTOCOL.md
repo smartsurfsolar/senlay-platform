@@ -20,4 +20,16 @@ Accepted observations are scored with a station-health signal. Fresh, repeated, 
 
 Only `checked` measurements are eligible for learned local memory. Senlay stores baselines by small local grid cell, month, phenomenon, and unit, then compares matching current signed readings against those baselines in context responses. Local memory is historical context and must be compared with current sensors and live models.
 
+## Python connector and safe simulator
+
+[`python/senlay_client.py`](../python/senlay_client.py) implements the production HMAC contract with the Python standard library. [`python/publish_reading.py`](../python/publish_reading.py) is a minimal real-reading command, and [`python/simulator.py`](../python/simulator.py) supports three explicit modes:
+
+- default preview: prints a payload locally and sends nothing
+- `--dry-run`: calls the owner-authorized signature test and stores nothing
+- `--publish`: submits generated readings as `estimated` with `simulated: true`
+
+The simulator never labels generated measurements as `checked`, so simulation cannot train the place-memory baseline. Keep the station secret in an environment variable or device secret store; do not put it in source code, command-line arguments, logs, or shared configuration.
+
+The account API key manages providers and stations and is needed for the dry-run route. A deployed device needs only its scoped station ID and station secret for `/api/v1/observations`.
+
 See [`protocol/observation.schema.json`](../protocol/observation.schema.json) for the machine-readable envelope.

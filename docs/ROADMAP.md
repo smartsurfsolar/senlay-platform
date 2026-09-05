@@ -19,7 +19,8 @@ Senlay is being developed around three tracks.
 ## 3. Better Developer Experience
 
 - OpenAPI documentation
-- SDK examples
+- JavaScript and dependency-free Python station connectors
+- safe simulated-data commissioning
 - stronger public docs
 - production-grade usage guidance
 

@@ -39,6 +39,41 @@ Before publishing live data, use the dashboard's `Send signed test` action to ve
 
 Nearby accepted observations appear in later authenticated `/api/v1/sense` and `/api/v1/pwm` responses as explicitly labelled direct station evidence. Checked station measurements also contribute to Senlay local memory baselines for the same place and season; those baselines are historical context, not current evidence.
 
+## Five-minute Python station
+
+The Python connector uses only the standard library, so a Raspberry Pi or ordinary computer needs no package installation. Copy the `stationId` and one-time station secret returned by the dashboard, then preview a simulated observation locally:
+
+```bash
+git clone https://github.com/smartsurfsolar/senlay-platform.git
+cd senlay-platform
+export SENLAY_STATION_ID='stn_REPLACE_ME'
+export SENLAY_STATION_SECRET='sl_station_REPLACE_ME'
+python3 python/simulator.py --seed 1
+```
+
+Preview mode does not contact Senlay. To verify the signature and payload without storing a reading, add the account API key and use the commissioning endpoint:
+
+```bash
+export SENLAY_ACCOUNT_API_KEY='sl_live_REPLACE_ME'
+python3 python/simulator.py --dry-run --seed 1
+```
+
+To exercise live ingestion with generated data, use `--publish`. Simulator readings are always marked `estimated`, carry `simulated: true`, and never enter the checked-reading place-memory baseline.
+
+```bash
+python3 python/simulator.py --publish --count 3 --interval 10 --seed 1
+```
+
+For a real wind sensor, pass its readings to the publisher. The default quality is `raw`; use `--quality checked` only when your adapter and sensor calibration justify that claim.
+
+```bash
+python3 python/publish_reading.py \
+  --lat 15.8801 --lng 108.3380 \
+  --wind-speed 7.4 --wind-direction 62
+```
+
+Import `SenlayClient` and `observation` from [`python/senlay_client.py`](python/senlay_client.py) to connect another sensor process directly.
+
 ## Try the live API — no install
 
 ```bash
