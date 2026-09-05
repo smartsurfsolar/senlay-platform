@@ -1,0 +1,6 @@
+.github/
+.env
+.env.*
+node_modules/
+python/**/__pycache__/
+python/**/*.pyc
