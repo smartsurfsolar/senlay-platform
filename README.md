@@ -33,13 +33,15 @@ Official MCP Registry metadata is provided in [`server.json`](server.json). Vers
 
 The production aggregation engine, global registry, authentication, billing, provider credentials, historical place-memory corpus, risk models, and commercial connectors remain in the private `senlay-platform-core` repository.
 
+The public website source is maintained separately in [senlay-world](https://github.com/smartsurfsolar/senlay-world); its canonical domain is [senlay.cloud](https://senlay.cloud). See [repository boundaries](docs/REPOSITORIES.md) for the public/private split and branch policy.
+
 ## Status
 
 This is the first `0.x` protocol release. Self-service station registration and signed observation ingestion are available at `senlay.cloud` for authenticated Senlay accounts. The server retains only a non-recoverable hash of every station secret; save each secret when it is returned.
 
 ## Connect a station to the live network
 
-First create a normal account at [senlay.cloud/register.html](https://senlay.cloud/register.html), then create or retrieve an API key in the dashboard. Use that account key only for provider and station management; use the station secret only to sign observations.
+First create a normal account at [senlay.cloud/register.html](https://senlay.cloud/register.html), then create an API key in the dashboard and save it when shown. Stored keys cannot be retrieved; create a replacement if yours is lost. Use that account key for provider and station management; use the station secret only to sign observations.
 
 ```bash
 # Create a provider with your account API key.
