@@ -50,3 +50,103 @@ paths:
             application/json:
               schema:
                 type: object
+  /api/v1/providers/register:
+    post:
+      summary: Create a sensor-network provider
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string, example: My community network }
+                slug: { type: string, example: my-community-network }
+      responses:
+        "201":
+          description: Provider created
+          content:
+            application/json:
+              schema: { type: object }
+  /api/v1/stations/register:
+    post:
+      summary: Register a station and receive its one-time signing secret
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [providerId, name, sensorType, location]
+              properties:
+                providerId: { type: string, example: prv_REPLACE_ME }
+                name: { type: string, example: Beach wind station }
+                sensorType: { type: string, example: weather_station }
+                location:
+                  type: object
+                  required: [lat, lng]
+                  properties:
+                    lat: { type: number, example: 15.8801 }
+                    lng: { type: number, example: 108.3380 }
+      responses:
+        "201":
+          description: Station and one-time credential created
+          content:
+            application/json:
+              schema: { type: object }
+  /api/v1/observations:
+    post:
+      summary: Submit a signed station observation
+      description: HMAC signs `<unix_timestamp>.<exact_request_body>` using SHA-256(station_secret) as key.
+      parameters:
+        - { name: X-Senlay-Station-Id, in: header, required: true, schema: { type: string } }
+        - { name: X-Senlay-Timestamp, in: header, required: true, schema: { type: integer } }
+        - { name: X-Senlay-Signature, in: header, required: true, schema: { type: string, example: sha256=... } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Observation'
+      responses:
+        "202":
+          description: Observation accepted
+          content:
+            application/json:
+              schema: { type: object }
+        "401": { description: Missing, expired, or invalid station signature }
+        "429": { description: Per-station rate limit reached }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Senlay account API key
+  schemas:
+    Observation:
+      type: object
+      required: [id, stationId, observedAt, location, measurements]
+      properties:
+        id: { type: string, example: observation-20260905-0001 }
+        stationId: { type: string, example: stn_REPLACE_ME }
+        observedAt: { type: string, format: date-time }
+        location:
+          type: object
+          required: [lat, lng]
+          properties:
+            lat: { type: number }
+            lng: { type: number }
+            altitudeM: { type: number }
+        measurements:
+          type: array
+          items:
+            type: object
+            required: [phenomenon, value, unit]
+            properties:
+              phenomenon: { type: string, example: wind.speed }
+              value: { type: number, example: 7.4 }
+              unit: { type: string, example: m/s }
+              quality: { type: string, enum: [raw, checked, estimated] }

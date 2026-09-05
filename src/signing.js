@@ -1,9 +1,13 @@
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
+
+function signingKey(secret) {
+  return createHash('sha256').update(String(secret), 'utf8').digest('hex');
+}
 
 export function signPayload(payload, secret, timestamp = Math.floor(Date.now() / 1000)) {
   if (!secret) throw new TypeError('signing secret is required');
   const body = typeof payload === 'string' ? payload : JSON.stringify(payload);
-  const signature = createHmac('sha256', secret).update(`${timestamp}.${body}`).digest('hex');
+  const signature = createHmac('sha256', signingKey(secret)).update(`${timestamp}.${body}`).digest('hex');
   return { timestamp: String(timestamp), signature: `sha256=${signature}` };
 }
 

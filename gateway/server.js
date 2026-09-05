@@ -36,7 +36,7 @@ const server = http.createServer(async (req, res) => {
     const observation = normalizeObservation(JSON.parse(body), { providerId });
     if (!upstream) return reply(res, 202, { accepted: true, forwarded: false, observationId: observation.id });
     const upstreamBody = JSON.stringify(observation);
-    const headers = { 'content-type': 'application/json' };
+    const headers = { 'content-type': 'application/json', 'x-senlay-station-id': observation.stationId };
     if (signingSecret) {
       const signed = signPayload(upstreamBody, signingSecret);
       headers['x-senlay-timestamp'] = signed.timestamp;

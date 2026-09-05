@@ -17,7 +17,25 @@ The production aggregation engine, global registry, authentication, billing, pro
 
 ## Status
 
-This is the first `0.x` protocol release. The SDK and gateway work locally and against a configurable compatible endpoint. Public self-service sensor ingestion on `senlay.cloud` is not claimed as generally available until its production endpoint and provider onboarding process are announced.
+This is the first `0.x` protocol release. Self-service station registration and signed observation ingestion are available at `senlay.cloud` for authenticated Senlay accounts. The server retains only a non-recoverable hash of every station secret; save each secret when it is returned.
+
+## Connect a station to the live network
+
+First create a normal account at [senlay.cloud/register.html](https://senlay.cloud/register.html), then create or retrieve an API key in the dashboard. Use that account key only for provider and station management; use the station secret only to sign observations.
+
+```bash
+# Create a provider with your account API key.
+curl -sS -X POST https://senlay.cloud/api/v1/providers/register \
+  -H "Authorization: Bearer $API_KEY" -H 'content-type: application/json' \
+  --data '{"name":"My community network","slug":"my-community-network"}'
+
+# Substitute the returned prv_... ID. Save the returned station secret now.
+curl -sS -X POST https://senlay.cloud/api/v1/stations/register \
+  -H "Authorization: Bearer $API_KEY" -H 'content-type: application/json' \
+  --data '{"providerId":"prv_REPLACE_ME","name":"Beach wind station","sensorType":"weather_station","location":{"lat":15.8801,"lng":108.3380}}'
+```
+
+Publish to `https://senlay.cloud/api/v1/observations` using the returned `stationId` plus the `X-Senlay-*` signature headers described in [the network protocol](docs/NETWORK_PROTOCOL.md). Nearby accepted observations appear in later authenticated `/api/v1/sense` responses as explicitly labelled direct station evidence.
 
 ## Try the live API — no install
 
@@ -59,13 +77,13 @@ Changes move from a feature branch to `develop`, then reach `main` after review 
 import { SenlayClient } from '@senlay/open-network';
 
 const client = new SenlayClient({
-  endpoint: 'http://127.0.0.1:8787/v1/observations',
-  providerId: 'community.example',
-  signingSecret: process.env.SENLAY_SIGNING_SECRET
+  endpoint: 'https://senlay.cloud/api/v1/observations',
+  providerId: 'prv_REPLACE_ME',
+  signingSecret: process.env.SENLAY_STATION_SECRET
 });
 
 await client.publish({
-  stationId: 'station-001',
+  stationId: 'stn_REPLACE_ME',
   observedAt: new Date().toISOString(),
   location: { lat: 15.8801, lon: 108.3380 },
   measurements: [{ phenomenon: 'wind.speed', value: 7.4, unit: 'm/s' }]

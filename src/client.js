@@ -15,7 +15,11 @@ export class SenlayClient {
   async publish(observation) {
     const normalized = normalizeObservation(observation, { providerId: this.providerId });
     const body = JSON.stringify(normalized);
-    const headers = { 'content-type': 'application/json', 'user-agent': '@senlay/open-network' };
+    const headers = {
+      'content-type': 'application/json',
+      'user-agent': '@senlay/open-network',
+      'x-senlay-station-id': normalized.stationId
+    };
     if (this.signingSecret) {
       const signed = signPayload(body, this.signingSecret);
       headers['x-senlay-timestamp'] = signed.timestamp;
