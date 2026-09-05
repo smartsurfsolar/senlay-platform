@@ -12,6 +12,8 @@ Purpose:
 
 - give an AI agent a concise read of current physical conditions
 - return context that can be used directly in a model prompt
+- include nearby signed station observations when available
+- include learned local memory baselines when enough checked station samples exist
 - support quick integration with assistants, workflows, and tools
 
 ## Physical World Model Endpoint
@@ -24,7 +26,17 @@ Purpose:
 
 - return a richer physical-world model
 - include current conditions and relevant modifiers
+- compare current signed station readings with learned local baselines when available
 - support applications that need structured environmental context
+
+## Open Network Operations
+
+Station owners can create providers, register stations, rotate station secrets, disable compromised stations, and dry-run a signed observation before publishing live data.
+
+See:
+
+- [`NETWORK_PROTOCOL.md`](NETWORK_PROTOCOL.md)
+- [`../openapi/senlay.public.yaml`](../openapi/senlay.public.yaml)
 
 ## Agent Registration
 

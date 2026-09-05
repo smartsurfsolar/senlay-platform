@@ -35,7 +35,9 @@ curl -sS -X POST https://senlay.cloud/api/v1/stations/register \
   --data '{"providerId":"prv_REPLACE_ME","name":"Beach wind station","sensorType":"weather_station","location":{"lat":15.8801,"lng":108.3380}}'
 ```
 
-Publish to `https://senlay.cloud/api/v1/observations` using the returned `stationId` plus the `X-Senlay-*` signature headers described in [the network protocol](docs/NETWORK_PROTOCOL.md). Nearby accepted observations appear in later authenticated `/api/v1/sense` responses as explicitly labelled direct station evidence.
+Before publishing live data, use the dashboard's `Send signed test` action to verify the station secret and payload shape without storing a fake observation. Then publish to `https://senlay.cloud/api/v1/observations` using the returned `stationId` plus the `X-Senlay-*` signature headers described in [the network protocol](docs/NETWORK_PROTOCOL.md).
+
+Nearby accepted observations appear in later authenticated `/api/v1/sense` and `/api/v1/pwm` responses as explicitly labelled direct station evidence. Checked station measurements also contribute to Senlay local memory baselines for the same place and season; those baselines are historical context, not current evidence.
 
 ## Try the live API — no install
 

@@ -9,6 +9,7 @@ paths:
   /api/v1/sense:
     get:
       summary: Get AI-ready physical context for a coordinate
+      description: Responses may include `network_observations` for nearby signed station evidence and `network_place_memory` for learned checked-station baselines when available.
       parameters:
         - name: lat
           in: query
@@ -32,6 +33,7 @@ paths:
   /api/v1/pwm:
     get:
       summary: Get a richer physical-world model for a coordinate
+      description: Responses may include current signed station readings, station trust, and local memory comparisons where enough checked samples exist.
       parameters:
         - name: lat
           in: query
@@ -97,6 +99,59 @@ paths:
           content:
             application/json:
               schema: { type: object }
+  /api/v1/stations/{stationId}/test-signature:
+    post:
+      summary: Dry-run a signed station observation without storing it
+      description: Verifies owner access, station signature, timestamp, payload shape, plausible values, and registered-location drift. The body and `X-Senlay-*` headers match `/api/v1/observations`.
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: stationId, in: path, required: true, schema: { type: string } }
+        - { name: X-Senlay-Station-Id, in: header, required: true, schema: { type: string } }
+        - { name: X-Senlay-Timestamp, in: header, required: true, schema: { type: integer } }
+        - { name: X-Senlay-Signature, in: header, required: true, schema: { type: string, example: sha256=... } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Observation'
+      responses:
+        "200":
+          description: Signature and payload verified; no observation stored
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  verified: { type: boolean }
+                  dryRun: { type: boolean }
+                  stationId: { type: string }
+                  measurementCount: { type: integer }
+  /api/v1/stations/{stationId}/disable:
+    post:
+      summary: Disable a station and revoke its active credential
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: stationId, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Station disabled
+          content:
+            application/json:
+              schema: { type: object }
+  /api/v1/stations/{stationId}/status:
+    get:
+      summary: Get station status, recent measurements, credential preview, and health
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: stationId, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Station status
+          content:
+            application/json:
+              schema: { type: object }
   /api/v1/observations:
     post:
       summary: Submit a signed station observation
@@ -118,6 +173,7 @@ paths:
             application/json:
               schema: { type: object }
         "401": { description: Missing, expired, or invalid station signature }
+        "422": { description: Invalid payload, implausible value, or location drift }
         "429": { description: Per-station rate limit reached }
 components:
   securitySchemes:
