@@ -1,0 +1,17 @@
+{
+  "name": "@senlay/open-network",
+  "version": "0.1.0",
+  "description": "Open sensor protocol, SDK, and edge gateway for the Senlay network",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "files": ["src", "protocol", "gateway", "adapters", "docs"],
+  "scripts": {
+    "check": "node --check src/index.js && node --check src/protocol.js && node --check src/signing.js && node --check src/client.js && node --check gateway/server.js && node --check adapters/example-sensor.js",
+    "test": "node --test test/*.test.js",
+    "gateway": "node gateway/server.js",
+    "example": "node adapters/example-sensor.js"
+  },
+  "engines": { "node": ">=20" },
+  "license": "Apache-2.0"
+}

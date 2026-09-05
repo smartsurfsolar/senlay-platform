@@ -4,7 +4,7 @@ info:
   version: 0.1.0
   description: Public overview of the Senlay physical-world context API.
 servers:
-  - url: https://senlay.world
+  - url: https://senlay.cloud
 paths:
   /api/v1/sense:
     get:

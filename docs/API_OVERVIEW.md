@@ -5,7 +5,7 @@ Senlay exposes physical-world context through simple HTTP endpoints.
 ## Sense Endpoint
 
 ```bash
-curl "https://senlay.world/api/v1/sense?lat=10.933&lon=108.287"
+curl "https://senlay.cloud/api/v1/sense?lat=10.933&lon=108.287"
 ```
 
 Purpose:
@@ -17,7 +17,7 @@ Purpose:
 ## Physical World Model Endpoint
 
 ```bash
-curl "https://senlay.world/api/v1/pwm?lat=10.933&lon=108.287"
+curl "https://senlay.cloud/api/v1/pwm?lat=10.933&lon=108.287"
 ```
 
 Purpose:
@@ -32,7 +32,7 @@ Senlay supports agent-friendly onboarding so an AI agent can request a key witho
 
 See the public website docs for the current production details:
 
-[https://senlay.world/docs.html](https://senlay.world/docs.html)
+[https://senlay.cloud/docs.html](https://senlay.cloud/docs.html)
 
 ## Response Design
 

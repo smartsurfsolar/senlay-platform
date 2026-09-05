@@ -1,97 +1,67 @@
-# Senlay — Sensory Intelligence Layer for AI Agents
+# Senlay Open Network
 
-**Senlay is a sensory intelligence layer that connects AI agents to the physical world.**
+Open protocol, JavaScript SDK, and edge-gateway starter for connecting independently operated sensors to Senlay.
 
-Senlay gives AI agents real-time awareness of weather, ocean, terrain, air quality, satellite data, sensor data, and physical-world context. It is designed for AI agents, assistants, and developer tools that need to reason from current conditions instead of static knowledge.
+[senlay.cloud](https://senlay.cloud) · [API documentation](https://senlay.cloud/docs.html)
 
-[senlay.world](https://senlay.world) · [Public Website](https://github.com/smartsurfsolar/senlay-world) · [Founder Story](https://senlay.world/founder.html)
+## What is open here
 
-## What Senlay Does
+- vendor-neutral observation envelope and JSON Schema
+- deterministic validation and normalization
+- HMAC request signing for provider-to-gateway transport
+- JavaScript client for any compatible ingestion endpoint
+- small edge gateway that validates before forwarding
+- adapter example and automated tests
 
-Senlay turns physical signals into AI-ready context.
+The production aggregation engine, global registry, authentication, billing, provider credentials, historical place-memory corpus, risk models, and commercial connectors remain in the private `senlay-platform-core` repository.
 
-```text
-Coordinate + intent
-        |
-        v
-Sensor and model aggregation
-        |
-        v
-Physical modifiers
-        |
-        v
-AI-ready context string / API response
-```
+## Status
 
-The platform is built around a simple belief: AI becomes more useful when it can sense the world it is talking about.
+This is the first `0.x` protocol release. The SDK and gateway work locally and against a configurable compatible endpoint. Public self-service sensor ingestion on `senlay.cloud` is not claimed as generally available until its production endpoint and provider onboarding process are announced.
 
-## Core Capabilities
-
-- Live physical context for any coordinate
-- Weather, wind, ocean, terrain, air-quality, seismic, and environmental layers
-- Hardware-first sensor preference where available
-- Model fallback where sensor coverage is sparse
-- Terrain and coastal modifiers
-- AI-agent optimized responses
-- Developer API for apps, assistants, and automation
-- Public onboarding pages for agent frameworks
-
-## Example Use Cases
-
-- AI agents checking outdoor conditions before giving advice
-- Coastal and water-sports safety assistants
-- Field-work planning tools
-- Travel and location-aware agents
-- Environmental monitoring assistants
-- Developer products that need current physical context
-
-## Public API Shape
-
-Senlay is exposed through simple HTTP endpoints.
+## Quick start
 
 ```bash
-curl "https://senlay.world/api/v1/sense?lat=10.933&lon=108.287"
+npm install
+npm test
+cp .env.example .env
+npm run gateway
 ```
 
-Example response styles are documented in:
+Send the example observation to the local gateway:
 
-- [`examples/sense-response.json`](examples/sense-response.json)
-- [`examples/agent-context.txt`](examples/agent-context.txt)
-- [`openapi/senlay.public.yaml`](openapi/senlay.public.yaml)
-
-## Architecture Overview
-
-```mermaid
-flowchart TD
-    A[Developer app or AI agent] --> B[Senlay API]
-    B --> C[Sensor aggregation layer]
-    C --> D[Weather and wind sources]
-    C --> E[Ocean and coastal sources]
-    C --> F[Terrain and environmental sources]
-    C --> G[Seismic and event sources]
-    B --> H[Physical modifier engine]
-    H --> I[AI-ready context]
-    I --> J[Agent response or application decision]
+```bash
+npm run example
 ```
 
-More detail:
+The gateway validates observations locally. Set `SENLAY_INGEST_URL` to forward them to an authorized compatible ingestion endpoint.
 
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-- [`docs/API_OVERVIEW.md`](docs/API_OVERVIEW.md)
-- [`docs/USE_CASES.md`](docs/USE_CASES.md)
-- [`docs/ROADMAP.md`](docs/ROADMAP.md)
+## Branches
 
-## Repository Purpose
+- `main`: stable public releases
+- `develop`: active public development
 
-This repository documents the platform, API shape, examples, and product direction.
+Changes move from a feature branch to `develop`, then reach `main` after review and tests. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Contact
+## Minimal SDK example
 
-- Email: [viktor@senlay.world](mailto:viktor@senlay.world)
-- WhatsApp: [+84 3333 801 68](https://wa.me/84333380168)
-- LinkedIn: [Viktor Kryvotsiuk](https://www.linkedin.com/in/viktor-kryvotsiuk-0b7449151/)
-- Ko-fi: [ko-fi.com/senlay](https://ko-fi.com/senlay)
+```js
+import { SenlayClient } from '@senlay/open-network';
 
-## Ownership
+const client = new SenlayClient({
+  endpoint: 'http://127.0.0.1:8787/v1/observations',
+  providerId: 'community.example',
+  signingSecret: process.env.SENLAY_SIGNING_SECRET
+});
 
-Copyright 2026 Senlay / SmartSurf Solar. All rights reserved.
+await client.publish({
+  stationId: 'station-001',
+  observedAt: new Date().toISOString(),
+  location: { lat: 15.8801, lon: 108.3380 },
+  measurements: [{ phenomenon: 'wind.speed', value: 7.4, unit: 'm/s' }]
+});
+```
+
+## License
+
+Apache-2.0. Contributions are welcome under the same license.
