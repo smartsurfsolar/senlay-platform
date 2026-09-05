@@ -4,6 +4,22 @@ This is the Senlay Open Network: the open protocol, JavaScript SDK, and edge-gat
 
 [senlay.cloud](https://senlay.cloud) · [API documentation](https://senlay.cloud/docs)
 
+## Connect an AI agent with MCP — no install
+
+Add the public stateless Streamable HTTP endpoint to an MCP-capable client. Anonymous trial access requires no signup or OAuth:
+
+```json
+{
+  "mcpServers": {
+    "senlay": {
+      "url": "https://senlay.cloud/mcp"
+    }
+  }
+}
+```
+
+The MCP `2026-07-28` server exposes exactly `sense_location`, `check_operability`, and `list_domains`. It preserves Senlay evidence provenance and explicitly reports unavailable inputs instead of inventing values. To use an account tier, add `Authorization: Bearer sl_live_...` to the server headers. Operability results are decision support; humans remain the final authority.
+
 ## What is open here
 
 - vendor-neutral observation envelope and JSON Schema
