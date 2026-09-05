@@ -2,7 +2,7 @@
 
 This is the Senlay Open Network: the open protocol, JavaScript SDK, and edge-gateway starter for connecting independently operated sensors to verified physical context.
 
-[senlay.cloud](https://senlay.cloud) · [API documentation](https://senlay.cloud/docs.html)
+[senlay.cloud](https://senlay.cloud) · [API documentation](https://senlay.cloud/docs)
 
 ## What is open here
 
