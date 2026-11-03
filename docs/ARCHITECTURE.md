@@ -21,7 +21,7 @@ The platform prefers live sensor readings when available and uses model data as 
 
 ## 3. Physical Modifiers
 
-Raw conditions are not enough. Senlay adds physical interpretation:
+Depending on available layers and the documented domain scope, Senlay can add physical interpretation. The list below describes conditional capabilities, not universal coverage; unavailable and planned layers must remain labelled:
 
 - terrain exposure
 - coastal effects
@@ -59,7 +59,7 @@ sequenceDiagram
 
 ## Design Principles
 
-- Live reality beats static assumptions.
+- Inspect source age, distance and representativeness before interpreting a reading.
 - Sensor readings are preferred where coverage exists.
 - Model data should be labeled by confidence and role.
 - The output must be easy for an AI agent to use without over-parsing.

@@ -1,11 +1,15 @@
 # Use Cases
 
+## Autonomous Systems
+
+Aerial, marine and field robotics software can integrate coordinate-level environmental evidence through REST and MCP alongside onboard sensing. Route and whole-mission assessment remain planned.
+
 ## AI Agents
 
 Agents can use Senlay before answering questions about the physical world:
 
 - "Is it windy there right now?"
-- "Is this location safe for an outdoor activity?"
+- "What observations, model disagreements and missing information matter at this location?"
 - "What changed in the environment today?"
 - "Is this coastal condition relevant for a session?"
 
