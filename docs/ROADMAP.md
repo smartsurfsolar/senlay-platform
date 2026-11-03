@@ -1,6 +1,6 @@
 # Roadmap
 
-Senlay is being developed around three tracks.
+Senlay provides coordinate-level environmental context in an evaluation MVP for autonomous systems and AI applications. Current interfaces include REST, MCP and signed station ingestion. Aerial, marine and field robotics workflows require further validation. Route/time-window and platform-specific mission evaluation remain planned. The following tracks describe direction, not a release schedule.
 
 ## 1. Better Sensing
 
