@@ -5,7 +5,7 @@ Senlay exposes physical-world context through simple HTTP endpoints.
 ## Sense Endpoint
 
 ```bash
-curl "https://senlay.cloud/api/v1/sense?lat=10.933&lon=108.287"
+curl -H "Authorization: Bearer $SENLAY_API_KEY" "https://senlay.cloud/api/v1/sense?lat=10.933&lng=108.287"
 ```
 
 Purpose:
@@ -13,20 +13,20 @@ Purpose:
 - give an AI agent a concise read of current physical conditions
 - return context that can be used directly in a model prompt
 - include nearby signed station observations when available
-- include learned local memory baselines when enough checked station samples exist
+- include descriptive local historical baselines when enough checked station samples exist
 - support quick integration with assistants, workflows, and tools
 
 ## Physical World Model Endpoint
 
 ```bash
-curl "https://senlay.cloud/api/v1/pwm?lat=10.933&lon=108.287"
+curl -H "Authorization: Bearer $SENLAY_API_KEY" "https://senlay.cloud/api/v1/pwm?lat=10.933&lng=108.287"
 ```
 
 Purpose:
 
 - return a richer physical-world model
 - include current conditions and relevant modifiers
-- compare current signed station readings with learned local baselines when available
+- compare current signed station readings with descriptive historical baselines when available
 - support applications that need structured environmental context
 
 ## Open Network Operations
@@ -60,3 +60,5 @@ See:
 
 - [`../examples/sense-response.json`](../examples/sense-response.json)
 - [`../examples/agent-context.txt`](../examples/agent-context.txt)
+
+Local memory is descriptive historical context, not a trained location-specific forecast. Availability depends on eligible observations and coverage.

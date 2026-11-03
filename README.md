@@ -1,6 +1,8 @@
-# Senlay — Verified Physical Context for Systems That Act Outside
+# Senlay — Physical-World Intelligence for Autonomous Systems
 
-This is the Senlay Open Network: the open protocol, JavaScript SDK, and edge-gateway starter for connecting independently operated sensors to verified physical context.
+Senlay combines available environmental observations and forecasts into location-specific context for autonomous systems and AI applications, with sources, freshness, disagreements and missing information exposed through REST and MCP. The current product is an evaluation MVP.
+
+This repository contains Senlay Open Network: the open station protocol, JavaScript SDK and edge-gateway starter. It is one component of Senlay, for connecting independently operated sensors.
 
 [senlay.cloud](https://senlay.cloud) · [API documentation](https://senlay.cloud/docs)
 
@@ -18,7 +20,7 @@ Add the public stateless Streamable HTTP endpoint to an MCP-capable client. Anon
 }
 ```
 
-The MCP `2026-07-28` server exposes exactly `sense_location`, `check_operability`, and `list_domains`. It preserves Senlay evidence provenance and explicitly reports unavailable inputs instead of inventing values. To use an account tier, add `Authorization: Bearer sl_live_...` to the server headers. Operability results are decision support; humans remain the final authority.
+The public MCP server exposes `sense_location`, `check_operability`, `list_domains`, and `get_forecast_trust`. Historical forecast trust can remain UNKNOWN when eligible archived pairs are insufficient; the demo history chart does not calculate a new trust score. It preserves Senlay evidence provenance and explicitly reports unavailable inputs instead of inventing values. To use an account tier, add `Authorization: Bearer sl_live_...` to the server headers. Operability results are decision support; humans remain the final authority.
 
 Official MCP Registry metadata is provided in [`server.json`](server.json). Version `1.0.0` is published as `io.github.smartsurfsolar/senlay` after live endpoint and schema validation.
 
@@ -33,11 +35,11 @@ Official MCP Registry metadata is provided in [`server.json`](server.json). Vers
 
 The production aggregation engine, global registry, authentication, billing, provider credentials, historical place-memory corpus, risk models, and commercial connectors remain in the private `senlay-platform-core` repository.
 
-The public website source is maintained separately in [senlay-world](https://github.com/smartsurfsolar/senlay-world); its canonical domain is [senlay.cloud](https://senlay.cloud). See [repository boundaries](docs/REPOSITORIES.md) for the public/private split and branch policy.
+The public website source is maintained separately in [Senlay](https://github.com/smartsurfsolar/Senlay); its canonical domain is [senlay.cloud](https://senlay.cloud). See [repository boundaries](docs/REPOSITORIES.md) for the public/private split and branch policy.
 
 ## Status
 
-This is the first `0.x` protocol release. Self-service station registration and signed observation ingestion are available at `senlay.cloud` for authenticated Senlay accounts. The server retains only a non-recoverable hash of every station secret; save each secret when it is returned.
+This is the first `0.x` protocol release. Self-service station registration and signed observation ingestion are available at `senlay.cloud` for authenticated Senlay accounts. The server retains a derived signing key that remains sensitive and can authenticate station submissions. Save the original station secret when returned and rotate it if lost or exposed.
 
 The network is at the start of its path: there are no coverage guarantees and no SLA. It is not claimed as generally available.
 
