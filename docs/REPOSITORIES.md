@@ -3,7 +3,7 @@
 | Repository | Visibility | Contents |
 | --- | --- | --- |
 | `smartsurfsolar/senlay-platform` | Public | Apache-2.0 protocol, SDK, edge gateway, examples and API documentation |
-| `smartsurfsolar/senlay-world` | Public | Website source, styles and curated public assets; retains its website license |
+| `smartsurfsolar/Senlay` | Public | Website source, styles and curated public assets; retains its website license |
 | `smartsurfsolar/senlay-platform-core` | Private | Backend, authentication, admin services, sensor integration, memory implementation and operations |
 
 Each uses `main` for stable work and `develop` for development. Visibility belongs to the repository: branches inside a public repository are public too. Private implementation and Git history are never merged into a public repository.
